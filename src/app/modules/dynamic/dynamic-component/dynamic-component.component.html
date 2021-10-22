@@ -1,0 +1,36 @@
+<ng-template #placeholder><div class="valami">me placeholder</div></ng-template>
+<div [style.width.px]="width" class="header">
+  <div class="header-dynamic-name">
+    <div><span>{{header}}</span></div>
+  </div>
+  <div *ngIf="modifyAble" class="header-dynamic-config">
+    <img width="22px" alt="Config" (click)="openConfiguration()"src="https://img.icons8.com/windows/32/000000/job.png"/>
+    <img [hidden]="!closed" (click)="toggleContent()" src="https://img.icons8.com/small/16/000000/double-down.png"/>
+    <img [hidden]="closed" (click)="toggleContent()" src="https://img.icons8.com/small/16/000000/double-up.png"/>
+  </div>
+</div>
+<div class="resizable-draggable bg-white" [ngStyle]="modifyAble && {'border': '1px solid black'}"
+  [style.width.px]="width" [style.height.px]="height" [class.active]="status === 1"
+  (window:mouseup)="setStatus($event, 0)">
+  <div [hidden]="closed || state == 'config'" class="inherit">
+    <ng-template appPortlet></ng-template>
+  </div>
+
+  <div *ngIf="state == 'config'" [hidden]="closed" class="inherit y-scroll">
+    <p>Configuration mode</p>
+
+    <app-custom-form [questions]="elements$"></app-custom-form>
+
+    <input type="button" value="Apply config" (click)="saveConfiguration()" />
+  </div>
+
+  <div *ngIf="resizeWarningDisplay" class="resize-warning inherit">
+    <span>{{resizeWarningText}} size reached!</span>
+  </div>
+
+  <div class="resize-details" [hidden]="closed">
+    <div class="resize-action" (mousedown)="setStatus($event, 1)"></div>
+    <span>{{width | number:'1.0-0'}}px</span>
+    <span>{{height | number:'1.0-0'}}px</span>
+  </div>
+</div>

@@ -1,0 +1,61 @@
+<div class="header">
+  <div class="title">
+    <span>Choose your destiny</span>
+  </div>
+  <div class="search">
+    <mat-form-field fxFlex appearance="fill">
+      <mat-label>Fill form field</mat-label>
+      <input #searchInput (keyup)="search(searchInput.value)" matInput placeholder="Placeholder">
+      <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
+  </div>
+</div>
+<mat-dialog-content appContent class="mat-typography">
+  <ng-template ngFor let-item [ngForOf]="controlPanels" let-i="index" let-odd="odd" let-even="even">
+    <div class="portlet-selector-row" [ngClass]="{ one: even, sec: odd }" (click)="toggle(item[0].uuid)">
+      <div class="checkbox-div"><input [checked]="selected == item[0].uuid" type="checkbox" /></div>
+      <div class="portlet-selector-template">
+          <mat-expansion-panel (opened)="headerTagLine.style.display = 'none'" (closed)="headerTagLine.style.display = 'block'">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                {{item[0].title}}
+              </mat-panel-title>
+              <mat-panel-description>
+                {{item[0].description}}
+              </mat-panel-description>
+              <div #headerTagLine>
+              <mat-chip-list role="list">
+                <ng-template ngFor let-item [ngForOf]="item[0].keyWords">
+                <mat-chip>
+                  {{item}}
+                </mat-chip>
+                </ng-template>
+              </mat-chip-list>
+              <div class="overflow"></div>
+              </div>
+            </mat-expansion-panel-header>
+            <ng-template matExpansionPanelContent>
+              <ng-container *ngComponentOutlet="item[1]"></ng-container>
+              <mat-chip-list>
+                <ng-template ngFor let-item [ngForOf]="item[0].keyWords">
+                <mat-chip>
+                  {{item}}
+                </mat-chip>
+                </ng-template>
+              </mat-chip-list>
+            </ng-template>
+          </mat-expansion-panel>
+      </div>
+    </div>
+  </ng-template>
+</mat-dialog-content>
+<div *ngIf="controlPanels.length == 0 && searchInput.value != ''" style="height: 350px; width: 100%">
+  Nincs találat!
+</div>
+<div *ngIf="controlPanels.length == 0 && searchInput.value == ''" style="height: 350px; width: 100%">
+  Nincs telepíthető portlet!
+</div>
+<mat-dialog-actions align="end">
+  <button mat-button [mat-dialog-close]="createResult(false)" cdkFocusInitial>Cancel</button>
+  <button [disabled]="selected == '-1'" mat-button [mat-dialog-close]="createResult(true)">Install</button>
+</mat-dialog-actions>

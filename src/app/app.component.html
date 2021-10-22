@@ -1,0 +1,16 @@
+<hello name="{{ name }}"></hello>
+<p>
+  Start editing to see some magic happen :)
+</p>
+
+<button (click)="addComponent()">Add</button>
+
+<app-dynamic-component [width]="300" [height]="150" [modifyAble]="false"></app-dynamic-component>
+
+<div #dropListArea class="flex-container" style="border: 1px black solid;width: 100%">
+  <ng-template appContent></ng-template>
+</div>
+
+<app-dynamic-component [width]="300" [height]="150" [modifyAble]="false"></app-dynamic-component>
+
+<div #dataContainer></div>

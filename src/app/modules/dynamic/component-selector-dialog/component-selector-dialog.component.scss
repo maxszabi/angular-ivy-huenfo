@@ -1,0 +1,80 @@
+.header {
+  display: flex;
+
+  .title {
+    display: flex;
+    flex: 1 1 50%;
+    justify-content: flex-start;
+    align-items: center;
+    font-size: 23px;
+  }
+
+  .search {
+    display: flex;
+    flex: 1 1 auto;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.checkbox-div {
+
+}
+
+.portlet-selector-row {
+    display: flex;
+    
+    .checkbox-div {
+      flex: 0 0 10%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .portlet-selector-template {
+      flex: 1 1 90%;
+      display: flex;
+    }
+
+    &.one {
+      background-color: lightgray;
+    }
+
+    &.sec {
+      background-color: white;
+    }
+  }
+
+  mat-expansion-panel {
+    width: 100%;
+    max-width: 400px;
+  }
+
+  .mat-expansion-panel-header {
+    height: 85px !important;
+  }
+
+  .mat-expansion-panel-header > span.mat-content {
+      flex-direction: column;
+  }
+
+  .mat-expansion-panel-header .mat-chip-list-wrapper {
+    flex-wrap: nowrap !important;
+  }
+
+  .overflow {
+    position: absolute;
+    right: 30px;
+    width: 40px;
+    height: 40px;
+    bottom: 0px;
+    background: linear-gradient(90deg, rgba(2,0,36,0) 0%, rgba(255,255,255,1) 100%);
+  }
+
+  .mat-expansion-panel {
+    &:hover {
+        .overflow {
+            background: linear-gradient(90deg, rgba(2,0,36,0) 0%, #f6f6f6 100%);
+        }
+    }
+  }
